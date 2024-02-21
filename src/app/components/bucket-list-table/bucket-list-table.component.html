@@ -1,0 +1,32 @@
+<h1>Bucket list</h1>
+
+<app-bucket-create *ngIf="isCreatingNewBucket" (createBucket)="createBucket($event)"></app-bucket-create>
+
+<div class="p-4 bg-light">
+    <div class="row">
+        <div class="col" style="vertical-align: middle;">
+            All buckets ({{ buckets.length }})
+        </div>
+        <div class="col">
+            <button *ngIf="!isCreatingNewBucket" class="btn btn-primary float-end" (click)="showCreateBucketComponent()" >Create New Bucket</button>
+        </div>
+    </div>
+    <table class="table table-bordered mt-4 mb-0">
+        <thead>
+            <tr class="table-secondary">
+                <th scope="col">Name</th>
+                <th scope="col">Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bucket of buckets; let i = index">
+                <th class="fw-normal">
+                    <a routerLink="/buckets/{{bucket.id}}">{{ bucket.name }}</a>
+                </th>
+                <th class="fw-normal" style="vertical-align: middle;">
+                    {{ bucket.location }}
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>

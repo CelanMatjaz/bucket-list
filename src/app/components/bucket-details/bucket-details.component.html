@@ -1,0 +1,87 @@
+<h1>Bucket list</h1>
+
+<app-modal *ngIf="isModalShown.file" text="Do you really want to delete this object?" (closeClick)="closeModal('file')" (deleteClick)="deleteObject()"></app-modal>
+<app-modal *ngIf="isModalShown.bucket" text="Do you really want to delete this bucket?" (closeClick)="closeModal('bucket')" (deleteClick)="deleteBucket()"></app-modal>
+
+<div class="nav nav-tabs" style="position: relative;">
+    <div class="nav-item">
+        <span role="button" class="nav-link" (click)="changeTab('files')" [class.active]="selectedTab == 'files'" href="#">Files</span>
+    </div>
+    <div class="nav-item">
+        <span role="button" class="nav-link" (click)="changeTab('details')" [class.active]="selectedTab == 'details'" href="#">Details</span>
+    </div>
+
+    <button
+        class="btn btn-danger btn-sm" 
+        style="position: absolute; right: 0" 
+        (click)="showModal('bucket')"
+    >
+        Delete bucket
+    </button>
+</div>
+
+<div *ngIf="selectedTab == 'files'" class="p-4 bg-light">
+    <div class="row">
+        <div class="col">
+            <span style="vertical-align: middle;">All files ({{ bucket?.files?.length ?? 0 }})</span>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary float-end btn-sm" style="margin-left: 10px;" (click)="uploadObject()">Upload object</button>
+            <button class="btn btn-danger float-end btn-sm" (click)="showModal('file')">Delete object</button>
+        </div>
+    </div>
+    <table class="table table-bordered mt-4 mb-0">
+        <thead>
+            <tr class="table-secondary">
+                <th scope="col">Name</th>
+                <th scope="col">Last modified</th>
+                <th scope="col">Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr 
+                *ngFor="let file of bucket?.files || []; let i = index"
+                [class.table-primary]="i === selectedFileIndex"
+                (click)="tableRowClick(i)"
+            >
+                <th class="fw-normal">
+                    <i class="align-top">
+                        <!-- https://icons.getbootstrap.com/icons/card-text/ -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-text" viewBox="0 0 16 16">
+                            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                            <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8m0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5"/>
+                        </svg> 
+                    </i>
+                    
+                    
+                    {{ file.name }}
+                </th>
+                <th class="fw-normal" style="vertical-align: middle;">
+                    {{ mapDate(file.lastModified) }}
+                </th>
+                <th class="fw-normal" style="vertical-align: middle;">
+                    {{ formatSize(file.size) }}
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="selectedTab == 'details'" class="p-4 bg-light">
+    <table class="table table-bordered mb-0">
+        <tbody>
+            <tr>
+                <td>Bucket name:</td>
+                <td>{{ bucket?.name }}</td>
+            </tr>
+            <tr>
+                <td>Bucket location:</td>
+                <td>{{ bucket?.location }}</td>
+            </tr>
+            <tr>
+                <td>Storage size:</td>
+                <td>{{ getAccumulateFileSizes() }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

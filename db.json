@@ -1,0 +1,45 @@
+{
+  "buckets": [
+    {
+      "id": "6cf0",
+      "name": "Bucket1",
+      "location": "Kranj",
+      "files": [
+        {
+          "size": 192,
+          "name": "New Text Document.txt",
+          "lastModified": 1708543574040
+        },
+        {
+          "size": 314,
+          "name": "New Text Document (2).txt",
+          "lastModified": 1708543577577
+        }
+      ]
+    },
+    {
+      "id": "285c",
+      "name": "Bucket2",
+      "location": "Ljubljana",
+      "files": [
+        {
+          "size": 192,
+          "name": "New Text Document.txt",
+          "lastModified": 1708543953976
+        }
+      ]
+    }
+  ],
+  "locations": [
+    {
+      "value": "Kranj",
+      "label": "Kranj",
+      "id": "f1d7"
+    },
+    {
+      "value": "Ljubljana",
+      "label": "Ljubljana",
+      "id": "1b65"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+.modal-container {
+    top: 50%;
+    left: 50%;
+    min-width: 400px;
+    position: absolute;
+    background-color: white;
+    transform: translate3d(-50%, -50%, 0);
+    padding: 10px;
+
+    .modal-text {
+        min-height: 20px;
+    }
+
+    hr {
+        margin: 10px 0;
+    }
+
+    button {
+        margin-right: 10px;
+    }
+}
