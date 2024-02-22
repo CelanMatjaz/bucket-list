@@ -43,6 +43,7 @@
                 *ngFor="let file of bucket?.files || []; let i = index"
                 [class.table-primary]="i === selectedFileIndex"
                 (click)="tableRowClick(i)"
+                style="cursor: pointer;"
             >
                 <th class="fw-normal">
                     <i class="align-top">
